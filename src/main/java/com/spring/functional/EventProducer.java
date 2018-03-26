@@ -1,12 +1,11 @@
 package com.spring.functional;
 
-import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class EventProducer {
@@ -21,14 +20,20 @@ public class EventProducer {
 //                .map(i -> i * 2)
 //                .subscribe(elements::add);
 
-        Flux.just(1, 2, 3, 4)
-                .log()
-                .map(i -> i * 2)
-                .zipWith(Flux.range(0, Integer.MAX_VALUE),
-                        (two, one) -> String.format("First Flux: %d, Second Flux: %d", one, two))
-                .subscribe(elements::add);
+//        Flux.just(1, 2, 3, 4)
+//                .log()
+//                .map(i -> i * 2)
+//                .zipWith(Flux.range(0, Integer.MAX_VALUE),
+//                        (two, one) -> String.format("First Flux: %d, Second Flux: %d", one, two))
+//                .subscribe(elements::add);
+//
+//        Stream.of(elements).forEach(System.out::println);
 
-        Stream.of(elements).forEach(System.out::println);
+
+        Flux.fromIterable(Arrays.asList("A", "B", "C"))
+                        .delayElements(Duration.ofSeconds(1)).log().subscribe(System.out::println);
+
+        //
 
 
 //        List<Long> elements2 = new ArrayList<Long>();
